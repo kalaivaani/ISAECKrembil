@@ -1,5 +1,5 @@
 ################################### Project: analyses for ISAEC Krembil abstracts #####################################
-# date: 2016-03-15
+# date: 2016-03-17
 # written by: Kala Sundararajan
 # BL and 6 month data from ISAEC clinical database, and consent status from master list
 
@@ -7,6 +7,9 @@
 ########################### analysis_bivariate.R: self-efficacy vs baseline characteristics ###############################
 load(file="processed_data/ISAEC_cons_newvars.Rdata")
 ISAEC <- ISAEC_cons
+
+# restrict sample to ones with self-efficacy scores
+ISAEC_SE <- subset(ISAEC, !is.na(ISAEC$BASELINE_SELF_EFFICACY_SCORE))
 
 # variable lists
 contvars <- c("AGE", "BASELINE_BPREST", "BASELINE_BPACTIVITY", "BASELINE_LEGPREST", 
@@ -39,9 +42,6 @@ names(expt_catvars) <- expt_catvars
 
 all_catvars <- c(demo_catvars, pain_catvars, work_catvars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
 
-
-# restrict sample to ones with self-efficacy scores
-ISAEC_SE <- subset(ISAEC, !is.na(ISAEC$BASELINE_SELF_EFFICACY_SCORE))
 
 # SE vs continuous variables
 SE_cont_bivar <- lapply(contvars, function(var) {
