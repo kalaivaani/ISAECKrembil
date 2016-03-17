@@ -21,10 +21,10 @@ pain_catvars <- c("BPLOC","BPSTOP","BPSTART","BPHX","BPSX","BPDURATION","LPDURAT
                   "BASELINE_RESULT")
 names(pain_catvars) <- pain_catvars
 
-work_vars <- c("WORK_UNDEREMP", "WORKSATIS", "WORKPHYS","WORKMENT")
-names(work_vars) <- work_vars
+work_catvars <- c("WORK_UNDEREMP", "WORKSATIS", "WORKPHYS","WORKMENT")
+names(work_catvars) <- work_catvars
 
-med_catvars <- c("MEDHYD","MEDOXY","MEDPERC","MEDTYL34","MEDNSAID","MEDTYL")
+med_catvars <- c("MEDHYD","MEDOXY","MEDPERC","MEDTYL34","MEDNSAID","MEDTYL","MEDOPI")
 names(med_catvars) <- med_catvars
 
 txinv_catvars <- c("TXCONSULT","TXSURG","TXACU","TXMASSAGE","TXPHYSIO","TXCHIRO","INVEMG","INVBONESCAN","INVMRI","INVCT","INVXRAY")
@@ -34,10 +34,10 @@ cm_catvars <- c("CM_RA","CM_OA","CM_PSYC","CM_DEP","CM_CANC","CM_ANEM","CM_ULC",
                 "CM_HBP","CM_HCHOL","CM_ANY")
 names(cm_catvars) <- cm_catvars
 
-expt_catvars <- c("EXPECTRELIEF.3","EXPECTACT.3","EXPECTSLEEP.3","EXPECTWORK.3","EXPECTREC.3","EXPECTPREV.3")
+expt_catvars <- c("EXPECTRELIEF3","EXPECTACT3","EXPECTSLEEP3","EXPECTWORK3","EXPECTREC3","EXPECTPREV3")
 names(expt_catvars) <- expt_catvars
 
-all_catvars <- c(demo_catvars, pain_catvars, work_vars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
+all_catvars <- c(demo_catvars, pain_catvars, work_catvars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
 
 
 # restrict sample to ones with self-efficacy scores

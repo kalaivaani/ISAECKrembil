@@ -141,12 +141,11 @@ save(ISAEC_cons_recent, file="processed_data/ISAEC_cons_recent.Rdata")
 #### recode or create new baseline variables ####
 # marital status -  1: married or common-law
 #                   2: single (never married)
-#                   3: separated/divorced
+#                   3: widowed/separated/divorced
 #                   4: widowed
 ISAEC$MARITAL[ISAEC$BASELINE_MSTATUS==1 | ISAEC$BASELINE_MSTATUS==2] <- 1
 ISAEC$MARITAL[ISAEC$BASELINE_MSTATUS==3] <- 2
-ISAEC$MARITAL[ISAEC$BASELINE_MSTATUS==4 | ISAEC$BASELINE_MSTATUS==5] <- 3
-ISAEC$MARITAL[ISAEC$BASELINE_MSTATUS==6] <- 4
+ISAEC$MARITAL[ISAEC$BASELINE_MSTATUS==4 | ISAEC$BASELINE_MSTATUS==5 | ISAEC$BASELINE_MSTATUS==6] <- 3
 
 # non-white ethnicity - 0 = white, 1 = nonwhite
 ISAEC$NONWHITE[ISAEC$BASELINE_ETHNICITY == 1] <- 0
@@ -205,6 +204,10 @@ ISAEC$MEDTYL34[ISAEC$BASELINE_PAINMEDTYLENOL34 == 1] <- 1
 ISAEC$MEDPERC[ISAEC$BASELINE_PAINMEDPERCOCET == 1] <- 1
 ISAEC$MEDOXY[ISAEC$BASELINE_PAINMEDOXYMOR == 1] <- 1
 ISAEC$MEDHYD[ISAEC$BASELINE_PAINMEDHYDDIL == 1] <- 1
+
+# opioid indicator: 0 = no opioids reported, 1= 1 or more opioids
+ISAEC$MEDOPI <- 0
+ISAEC$MEDOPI[ISAEC$MEDTYL34==1 | ISAEC$MEDPERC==1 | ISAEC$MEDOXY==1 | ISAEC$MEDHYD==1] <- 1
 
 # employment status: recode missing as 'other'
 ISAEC$WORKSTAT <- ISAEC$BASELINE_WORKSTATUS
