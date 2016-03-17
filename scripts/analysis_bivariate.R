@@ -21,6 +21,9 @@ pain_catvars <- c("BPLOC","BPSTOP","BPSTART","BPHX","BPSX","BPDURATION","LPDURAT
                   "BASELINE_RESULT")
 names(pain_catvars) <- pain_catvars
 
+work_vars <- c("WORK_UNDEREMP", "WORKSATIS", "WORKPHYS","WORKMENT")
+names(work_vars) <- work_vars
+
 med_catvars <- c("MEDHYD","MEDOXY","MEDPERC","MEDTYL34","MEDNSAID","MEDTYL")
 names(med_catvars) <- med_catvars
 
@@ -31,10 +34,10 @@ cm_catvars <- c("CM_RA","CM_OA","CM_PSYC","CM_DEP","CM_CANC","CM_ANEM","CM_ULC",
                 "CM_HBP","CM_HCHOL","CM_ANY")
 names(cm_catvars) <- cm_catvars
 
-expt_catvars <- c("EXPECTRELIEF","EXPECTACT","EXPECTSLEEP","EXPECTWORK","EXPECTREC","EXPECTPREV")
+expt_catvars <- c("EXPECTRELIEF.3","EXPECTACT.3","EXPECTSLEEP.3","EXPECTWORK.3","EXPECTREC.3","EXPECTPREV.3")
 names(expt_catvars) <- expt_catvars
 
-all_catvars <- c(demo_catvars, pain_catvars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
+all_catvars <- c(demo_catvars, pain_catvars, work_vars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
 
 
 # restrict sample to ones with self-efficacy scores
@@ -61,7 +64,15 @@ write.csv(SE_cat_means_table, file="output/SE_cat_means.csv")
 
 # anova models
 SE_cat_anova <- lapply(all_catvars, function(var, dat=ISAEC_SE) {
-  aov(dat$BASELINE_SELF_EFFICACY_SCORE ~ dat[,var])
+  aov(dat$BASELINE_SELF_EFFICACY_SCORE ~ factor(dat[,var]))
 })
 
-SE_cat_anova[[1]]
+SE_cat_rsq_p <- lapply(SE_cat_anova, function(mod) {
+  sumsq <- summary(mod)[[1]][,2]
+  rsq <- sumsq[1] / sum(sumsq)
+  pval <- summary(mod)[[1]][1,5]
+  return(c(R.sq = rsq, p=pval))
+})
+SE_cat_rsq_p <- do.call(rbind, SE_cat_rsq_p)
+write.csv(SE_cat_rsq_p, file="output/SE_cat_models.csv")
+

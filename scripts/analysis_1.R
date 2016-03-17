@@ -45,6 +45,8 @@ demo_catvars <- c("GENDER", "COLLECTION_CENTER", "MARITAL", "NONWHITE","SMOKETYP
 pain_catvars <- c("BPLOC","BPSTOP","BPSTART","BPHX","BPSX","BPDURATION","LPDURATION","CLAIM","NONRADIC","PAINPERC","BOWELCHANGE","LEGWEAK","LEGNUMB",
                   "BASELINE_RESULT")
 
+work_vars <- c("WORKSTAT", "WORK_UNDEREMP", "WORKSATIS", "WORKPHYS","WORKMENT")
+
 med_catvars <- c("MEDHYD","MEDOXY","MEDPERC","MEDTYL34","MEDNSAID","MEDTYL")
 
 txinv_catvars <- c("TXCONSULT","TXSURG","TXACU","TXMASSAGE","TXPHYSIO","TXCHIRO","INVEMG","INVBONESCAN","INVMRI","INVCT","INVXRAY")
@@ -54,7 +56,7 @@ cm_catvars <- c("CM_RA","CM_OA","CM_PSYC","CM_DEP","CM_CANC","CM_ANEM","CM_ULC",
 
 expt_catvars <- c("EXPECTRELIEF","EXPECTACT","EXPECTSLEEP","EXPECTWORK","EXPECTREC","EXPECTPREV")
 
-all_catvars <- c(demo_catvars, pain_catvars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
+all_catvars <- c(demo_catvars, pain_catvars, work_vars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
 
 # descriptive statistics
 desc_cont <- MeanSD(ISAEC, contvars)

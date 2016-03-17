@@ -224,6 +224,9 @@ ISAEC$WORKMENT[ISAEC$BASELINE_WORKMENT==1] <- 1
 ISAEC$WORKMENT[ISAEC$BASELINE_WORKMENT==0] <- 2
 ISAEC$WORKMENT[is.na(ISAEC$BASELINE_WORKMENT)] <- 3
 
+# underemployed: 1=mod. duties, not employed, or disability benefit, 2=other
+ISAEC$WORK_UNDEREMP <- ifelse(ISAEC$WORKSTAT==2 | ISAEC$WORKSTAT==5 | ISAEC$WORKSTAT==7, 1, 0)
+
 # frequent exercise: 1 = twice or more per week, 0 = other or missing
 ISAEC$FREQ_EXERC <- 0
 ISAEC$FREQ_EXERC[ISAEC$BASELINE_EXERCISE==4] <- 1
@@ -283,6 +286,14 @@ for (v in expc_vars) {
   varname <- sub("BASELINE_","",v)
   ISAEC[,varname] <- ISAEC[,v]
   ISAEC[,varname][is.na(ISAEC[,varname])] <- 6
+}
+
+# 3-level expectations: recode --> 1=not at all to somewhat likely, 2= very likely or extremely likely, 3= not applicable
+for (v in expc_vars) {
+  varname <- sub("BASELINE_","",v)
+  hvarname <- paste0(varname, "3")
+  ISAEC[,hvarname] <- ifelse(ISAEC[,varname] <= 3, 1,
+                             ifelse(ISAEC[,varname] <= 5, 2, 3))
 }
 
 #### save dataset
