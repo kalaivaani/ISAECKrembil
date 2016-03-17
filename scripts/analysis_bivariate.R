@@ -63,3 +63,5 @@ write.csv(SE_cat_means_table, file="output/SE_cat_means.csv")
 SE_cat_anova <- lapply(all_catvars, function(var, dat=ISAEC_SE) {
   aov(dat$BASELINE_SELF_EFFICACY_SCORE ~ dat[,var])
 })
+
+SE_cat_anova[[1]]
