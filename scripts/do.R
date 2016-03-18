@@ -11,6 +11,8 @@ setwd("Z:/Documents/work/isaec/Krembil abstracts")
 library(plyr)
 library(lubridate)
 library(ggplot2)
+library(MASS)
+library(flexmix)
 
 #### load functions ####
 source("Y:/LEAP/24. LEAP OA Data Quality/scripts/functions.R")
