@@ -32,7 +32,7 @@ ISAEC_SEreg_rmNPRS.nm <- na.omit(ISAEC_SEreg_rmNPRS)
 SE_fmNPRS <- with(ISAEC_SEreg.nm, lm(BASELINE_SELF_EFFICACY_SCORE ~ GENDER + AGE + COLLECTION_CENTER + 
                                        factor(BPDURATION) + factor(LPDURATION) +
                                        BASELINE_BPREST + BASELINE_BPACTIVITY + BASELINE_LEGPREST + 
-                                       BASELINE_LEGPACTIVITY + BASELINE_TOTAL + BASELINE_RESULT +
+                                       BASELINE_LEGPACTIVITY + BASELINE_TOTAL + relevel(factor(BASELINE_RESULT), ref="Low risk") +
                                        factor(MARITAL) + factor(SMOKETYPE) + BOWELCHANGE + LEGWEAK + LEGNUMB + 
                                        WORK_UNDEREMP + MEDOPI + factor(EXPECTRELIEF3) + factor(EXPECTACT3) + 
                                        factor(EXPECTSLEEP3) + factor(EXPECTWORK3) + factor(EXPECTREC3) + 
@@ -41,10 +41,13 @@ SE_fmNPRS <- with(ISAEC_SEreg.nm, lm(BASELINE_SELF_EFFICACY_SCORE ~ GENDER + AGE
 # model without NPRS scores
 SE_fm_exNPRS <- with(ISAEC_SEreg.nm, lm(BASELINE_SELF_EFFICACY_SCORE ~ GENDER + AGE + COLLECTION_CENTER + 
                                           factor(BPDURATION) + factor(LPDURATION) +
-                                          BASELINE_TOTAL + BASELINE_RESULT +
+                                          BASELINE_TOTAL + relevel(factor(BASELINE_RESULT), ref="Low risk") +
                                           factor(MARITAL) + factor(SMOKETYPE) + BOWELCHANGE + LEGWEAK + LEGNUMB + 
                                           WORK_UNDEREMP + MEDOPI + factor(EXPECTRELIEF3) + factor(EXPECTACT3) + 
                                           factor(EXPECTSLEEP3) + factor(EXPECTWORK3) + factor(EXPECTREC3) + 
                                           factor(EXPECTPREV3)))
 
 lapply(list(withNPRS = SE_fmNPRS, noNPRS = SE_fm_exNPRS), summary)
+step_SEmodel <- stepAIC(SE_fmNPRS, direction="both")
+
+
