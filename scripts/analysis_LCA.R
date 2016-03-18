@@ -33,16 +33,13 @@ predictors <- FLXMRglm(~ factor(BPDURATION) + factor(LPDURATION) + CLAIM + BPSTO
                          BOWELCHANGE + LEGWEAK + LEGNUMB + MEDOPI + factor(EXPECTRELIEF3) + factor(EXPECTACT3) + 
                          factor(EXPECTSLEEP3) + factor(EXPECTWORK3) + factor(EXPECTREC3) + 
                          factor(EXPECTPREV3) + GENDER + AGE + COLLECTION_CENTER + factor(MARITAL) + factor(SMOKETYPE) + 
-                         WORK_UNDEREMP)
+                         WORK_UNDEREMP + FREQ_EXERC + NONRADIC + PAINPERC)
 
 clin_predictors <- FLXMRglm(~ factor(BPDURATION) + factor(LPDURATION) + BPSTOP + 
                               BASELINE_BPREST + BASELINE_BPACTIVITY + BASELINE_LEGPREST + 
                               BASELINE_LEGPACTIVITY +
                               BOWELCHANGE + LEGWEAK + LEGNUMB + MEDOPI + GENDER + AGE + factor(SMOKETYPE))
-LC_SEmodel <- stepFlexmix(BASELINE_SELF_EFFICACY_SCORE~factor(BPDURATION) + factor(LPDURATION) + BPSTOP + 
-                            BASELINE_BPREST + BASELINE_BPACTIVITY + BASELINE_LEGPREST + 
-                            BASELINE_LEGPACTIVITY + BOWELCHANGE + LEGWEAK + LEGNUMB + MEDOPI + GENDER + 
-                            AGE + factor(SMOKETYPE), data=ISAEC_SEreg.nm, k=1:5)
+LC_SEmodel <- stepFlexmix(BASELINE_SELF_EFFICACY_SCORE~1, model=predictors, data=ISAEC_SEreg.nm, k=1:5)
 
 plot(LC_SEmodel, what="BIC")
 best_SEmodel <- getModel(LC_SEmodel, which="BIC")
