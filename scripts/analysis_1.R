@@ -55,8 +55,9 @@ cm_catvars <- c("CM_RA","CM_OA","CM_PSYC","CM_DEP","CM_CANC","CM_ANEM","CM_ULC",
                 "CM_HBP","CM_HCHOL","CM_ANY")
 
 expt_catvars <- c("EXPECTRELIEF","EXPECTACT","EXPECTSLEEP","EXPECTWORK","EXPECTREC","EXPECTPREV")
+expt3_catvars <- c("EXPECTRELIEF3","EXPECTACT3","EXPECTSLEEP3","EXPECTWORK3","EXPECTREC3","EXPECTPREV3")
 
-all_catvars <- c(demo_catvars, pain_catvars, work_vars, med_catvars, txinv_catvars, cm_catvars, expt_catvars)
+all_catvars <- c(demo_catvars, pain_catvars, work_vars, med_catvars, txinv_catvars, cm_catvars, expt_catvars, expt3_catvars)
 
 # descriptive statistics
 desc_cont <- MeanSD(ISAEC, contvars)
