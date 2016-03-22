@@ -65,7 +65,7 @@ SE_clin_output <- LMOut(SE_clin)
 
 #### non-clinical characteristics ####
 
-nonclin_vars_cont <- c("BASELINE_RESILIENCE")
+nonclin_vars_cont <- c()
 nonclin_vars_cat <- c("BASELINE_RESULT", "CLAIM", "WORK_UNDEREMP", "WORKSATIS", "WORKPHYS",
                       "WORKMENT", grep("^EXPECT.*3$", names(ISAEC), value=TRUE))
 
