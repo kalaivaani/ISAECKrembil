@@ -14,7 +14,7 @@ ISAEC_SE <- subset(ISAEC, !is.na(ISAEC$BASELINE_SELF_EFFICACY_SCORE))
 
 analysis_vars <- c("GENDER", "AGE","COLLECTION_CENTER", "BPDURATION", "LPDURATION",
                    "BASELINE_BPREST", "BASELINE_BPACTIVITY", "BASELINE_LEGPREST", 
-                   "BASELINE_LEGPACTIVITY", "BASELINE_TOTAL", "BASELINE_RESULT", "BASELINE_RESILIENCE", "MARITAL","SMOKETYPE",
+                   "BASELINE_LEGPACTIVITY", "BASELINE_TOTAL", "BASELINE_RESULT", "SMOKETYPE",
                    "FREQ_EXERC", "BPLOC","BPSTOP","BPHX","BPDURATION","LPDURATION","CLAIM","NONRADIC","PAINPERC",
                    "BOWELCHANGE","LEGWEAK","LEGNUMB","WORK_UNDEREMP","MEDOPI","EXPECTRELIEF3",
                    "EXPECTACT3","EXPECTSLEEP3","EXPECTWORK3","EXPECTREC3","EXPECTPREV3")
@@ -33,7 +33,7 @@ SE_fmNPRS <- with(ISAEC_SEreg.nm, lm(BASELINE_SELF_EFFICACY_SCORE ~ GENDER + AGE
                                        factor(BPDURATION) + factor(LPDURATION) +
                                        BASELINE_BPREST + BASELINE_BPACTIVITY + BASELINE_LEGPREST + 
                                        BASELINE_LEGPACTIVITY + BASELINE_TOTAL + relevel(factor(BASELINE_RESULT), ref="Low risk") +
-                                       factor(MARITAL) + factor(SMOKETYPE) + BOWELCHANGE + LEGWEAK + LEGNUMB + 
+                                       factor(SMOKETYPE) + BOWELCHANGE + LEGWEAK + LEGNUMB + 
                                        WORK_UNDEREMP + MEDOPI + factor(EXPECTRELIEF3) + factor(EXPECTACT3) + 
                                        factor(EXPECTSLEEP3) + factor(EXPECTWORK3) + factor(EXPECTREC3) + 
                                        factor(EXPECTPREV3)))
