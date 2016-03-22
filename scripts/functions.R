@@ -42,4 +42,7 @@ score_start <- function(responses, thresholds=c(2, 1, 5, 5, 7, 3, 6, 7, 3)) {
   return(output)
 }
 
-
+#### output regression nobs, r-squared, BIC ####
+reg_chars <- function(reg) {
+  return(c(N=nobs(reg), R.squared=summary(reg)$r.squared, BIC=BIC(reg)))
+}
