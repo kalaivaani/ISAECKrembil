@@ -12,7 +12,9 @@ library(plyr)
 library(lubridate)
 library(ggplot2)
 library(MASS)
+library(relaimpo)
 library(flexmix)
+library(randomForest)
 
 #### load functions ####
 source("Y:/LEAP/24. LEAP OA Data Quality/scripts/functions.R")
@@ -29,3 +31,4 @@ source("scripts/analysis_1.R")           # basic stats
 source("scripts/analysis_bivariate.R")   # bivariate stats (self-efficacy)
 source("scripts/analysis_regression.R")  # simple regression model
 source("scripts/analysis_LCA.R")         # latent class analysis
+source("scripts/analysis_randomforest.R")         # random forest analysis
