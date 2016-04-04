@@ -66,7 +66,7 @@ SE_clin_output <- LMOut(SE_clin)
 #### non-clinical characteristics ####
 
 nonclin_vars_cont <- c()
-nonclin_vars_cat <- c("BASELINE_RESULT", "CLAIM", "WORK_UNDEREMP", "WORKSATIS", "WORKPHYS",
+nonclin_vars_cat <- c("CLAIM", "WORK_UNDEREMP", "WORKSATIS", "WORKPHYS",
                       "WORKMENT", grep("^EXPECT.*3$", names(ISAEC), value=TRUE))
 
 full_formula <- paste0(clin_formula, " + ", 
@@ -80,7 +80,18 @@ SE_full_output <- LMOut(SE_full)
 SE_clin_step <- stepAIC(SE_clin, direction="both")
 SE_full_step <- stepAIC(SE_full, direction="both")
 
+### predicted vs actual ###
+predclin<-predict(SE_clin)
+predfull <- predict(SE_full)
+predclin_step <- predict(SE_clin_step)
+predfull_step <- predict(SE_full_step)
 
+ggplot(ISAEC_SEreg, aes(x=BASELINE_SELF_EFFICACY_SCORE, y=predclin)) + geom_point() + geom_smooth(method=lm)
+ggplot(ISAEC_SEreg, aes(x=BASELINE_SELF_EFFICACY_SCORE, y=predfull)) + geom_point() + geom_smooth(method=lm)
+ggplot(ISAEC_SEreg, aes(x=BASELINE_SELF_EFFICACY_SCORE, y=predclin_step)) + geom_point() + geom_smooth(method=lm)
+ggplot(ISAEC_SEreg, aes(x=BASELINE_SELF_EFFICACY_SCORE, y=predfull_step)) + geom_point() + geom_smooth(method=lm)
+
+#### output results ####
 clin_model_outputs <- merge(LMOut(SE_clin), LMOut(SE_clin_step), by="row.names", all=TRUE)
 full_model_outputs <- merge(LMOut(SE_full), LMOut(SE_full_step), by="row.names", all=TRUE)
 all_model_outputs <- merge(clin_model_outputs, full_model_outputs, by="Row.names", all=TRUE)
@@ -91,3 +102,22 @@ write.csv(all_model_outputs, file="output/reg_models.csv", na="", row.names=FALS
 fit_stats <- do.call(rbind, lapply(list(clin=SE_clin, clin.step=SE_clin_step, full=SE_full, full.step=SE_full_step), 
                                    reg_chars))
 write.csv(fit_stats, file="output/reg_fit_stats.csv")
+
+
+SE_models <- list(clin=SE_clin, clin_step=SE_clin_step, full=SE_full, full.step=SE_full_step)
+
+for (i in 1:length(SE_models)) {
+  for (j in i:length(SE_models)) {
+    print(paste(names(SE_models)[[i]], names(SE_models)[[j]], sep=" vs "))
+    print(anova(SE_models[[i]], SE_models[[j]], test="Chisq"))
+  }
+}
+
+# Bootstrap Measures of Relative Importance (500 samples) 
+boot_full_step <- boot.relimp(SE_full_step, b = 500, type = c("lmg", "last", "first"), rank = TRUE, 
+                    diff = TRUE, rela = TRUE)
+relimp.result <- booteval.relimp(boot_full_step) # print result
+print(relimp.result)
+plot(relimp.result) # plot result
+str(relimp.result)
+relimp.result@lmg
